@@ -4,5 +4,5 @@ from .models import *
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('imovel/', views.imovel, name='imovel')
+    path('imovel/', views.cadastrar, name='cadastrar')
 ]

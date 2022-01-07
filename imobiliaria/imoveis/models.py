@@ -6,6 +6,6 @@ class Imovel(models.Model):
     tipo = models.CharField(max_length=100)
     endereco = models.CharField(max_length=100)
     valor = models.CharField(max_length=100)
-    foto_imovel    = models.ImageField(upload_to = 'fotos/%d/%m/%Y', blank=True)
+    foto = models.ImageField(upload_to = 'fotos/%d/%m/%Y', blank=True)
     def __str__(self):
         return self.codigo
