@@ -4,7 +4,6 @@
 {% include 'partials/_header.html' %}
 <main class="d-flex flex-row position-relative">
     <!-- menu lateral -->
-
     <div class="w-25 mt-5 mx-5 p-2 backgrund-menu">
         <form>
             <div>
@@ -61,7 +60,7 @@
                             <p class="card-text">{{imovel.valor}}</p>
                             <!-- botao vermelho caso ja estiver desligado e escrito Locado-->
                             <!-- Caso estiver livre, botao azul e escrito Vago -->
-                            <a href="" class="btn btn-primary">Alugar</a>
+                            <a href="{% url 'imovel' imovel.id %}" class="btn btn-primary">Alugar</a>
                         </div>
                     </div>
                 </div>

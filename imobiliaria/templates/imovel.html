@@ -3,8 +3,54 @@
 {% block content%}
 {% include 'partials/_header.html' %}
 <main>
-    <!-- código, tipo, endereço e valor -->
-    
+    {% if messages %}
+    <ul class="messages text-center">
+        {% for message in messages %}
+        <div class="alert alert-warning" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <div class="card mx-3 mb-3 d-flex text-center style=" width: 18rem;">
+        {% if imovel.foto_imovel == '' %}
+        <img class="card-img-top" src="{% static 'img/apartamento.jpg' %}" alt="">
+        {% else %}
+        <img class="card-img-top" src="{{ imovel.foto_imovel.url }}" alt="teste">
+        {% endif %}
+
+        <div class="card-body">
+            <h2 class="card-title">{{imovel.codigo}}</h2>
+            <h5 class="card-text">{{imovel.endereco}}</h5>
+            <h5 class="card-text">{{imovel.valor}}</h5>
+        </div>
+    </div>
+    <form class="m-5 p-5" method="post">
+        {% csrf_token %}
+        <div class="d-flex justify-content-evenly">
+            <div class="mb-3 w-50">
+                <label for="data_inicial" class="form-label">Data Inicial</label>
+                <input type="date" class="form-control" id="data_inicial" name="inicial" aria-describedby="emailHelp"
+                    required>
+            </div>
+            <div class="mb-3 w-50">
+                <label for="data_final" class="form-label">Data Final</label>
+                <input type="date" class="form-control" id="data_final" name="final" aria-describedby="emailHelp"
+                    required>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="cliente" class="form-label">Cliente</label>
+            <select name="cliente">
+                {% for cliente in clientes %}
+                <option value="{{ cliente.id }}">{{ cliente }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Alugar</button>
+    </form>
+
 </main>
 
 <footer class="position-relative">

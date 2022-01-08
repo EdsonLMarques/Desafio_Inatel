@@ -4,7 +4,7 @@
 {% include 'partials/_header.html' %}
 <main>
     <!-- código, tipo, endereço e valor -->
-    <form class="m-5 p-5" method="post">
+    <form class="m-5 p-5" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="mb-3">
             <label for="endereco" class="form-label">Endereço</label>
@@ -21,7 +21,7 @@
             </div>
             <div class="mb-3 ms-3 w-25">
                 <label for="imagem" class="form-label">Imagem</label>
-                <input type="file" class="form-control" required id="imagem" name="img">
+                <input type="file" class="form-control" id="imagem" name="imagem">
             </div>
             <div class="mb-3 ms-3 w-25">
                 <label for="tipo" class="form-label">Tipo</label>
@@ -32,7 +32,7 @@
                 </select>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
     </form>
 </main>
 
