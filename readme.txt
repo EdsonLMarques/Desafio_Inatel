@@ -28,4 +28,7 @@ informações:
     repositório = github
 
 Obs:
-    Utilizei o PgAdmin4 para controle do banco de dados, logo o banco de dados esta criado apenas localmente. Porem todos os migrations foram realizados
+    Utilizei o PgAdmin4 para controle do banco de dados, logo o banco de dados esta criado apenas localmente. Porem todos as migrations foram realizados,
+
+    segue o link do onedriver com os videos demonstrando a aplicação, admin page e PGadmin
+    https://posinatel-my.sharepoint.com/:f:/r/personal/edsonmarques_gea_inatel_br/Documents/desafio%20inatel?csf=1&web=1&e=BoYoh0
