@@ -4,43 +4,52 @@
 {% include 'partials/_header.html' %}
 <main class="d-flex flex-row position-relative">
     <!-- menu lateral -->
-    <div class="w-25 mt-5 mx-5 p-2 backgrund-menu">
-        <form>
-            <div>
+    <div class="w-25 mt-5 mx-4 p-2 backgrund-menu">
+        <h2>Filtros</h2>
+        <form class="" method="post">
+            {% csrf_token %}
+            <div class="my-5">
                 <h4>Tipo</h4>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="radio" name="tipo1" value="tipo1">
-                    <label class="form-check-label" for="tipo1">Apartamento</label>
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="radio" name="tipo" value="tipo1" checked>
+                    <label class="form-check-label" for="tipo1">Todos</label>
                 </div>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="radio" name="tipo1" value="tipo2">
-                    <label class="form-check-label" for="tipo2">kitnet</label>
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="radio" name="tipo" value="tipo2">
+                    <label class="form-check-label" for="tipo2">Apartamento</label>
                 </div>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="radio" name="tipo1" value="tipo3">
-                    <label class="form-check-label" for="tipo3">casa</label>
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="radio" name="tipo" value="tipo3">
+                    <label class="form-check-label" for="tipo3">kitnet</label>
+                </div>
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="radio" name="tipo" value="tipo4">
+                    <label class="form-check-label" for="tipo4">casa</label>
                 </div>
             </div>
-
-            <div>
+            <div class="my-5">
                 <h4>Status</h4>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="radio" name="vago1" value="vago1">
-                    <label class="form-check-label" for="vago1">Vago</label>
+                <div class="form-check mt-3 ">
+                    <input class="form-check-input" type="radio" name="vago" value="vago1" checked>
+                    <label class="form-check-label" for="vago1">Todos</label>
                 </div>
-                <div class="form-check mt-2">
-                    <input class="form-check-input" type="radio" name="vago1" value="vago2">
-                    <label class="form-check-label" for="vago2">Locado</label>
+                <div class="form-check mt-3 ">
+                    <input class="form-check-input" type="radio" name="vago" value="vago2">
+                    <label class="form-check-label" for="vago2">Vago</label>
                 </div>
-                <div class="mt-2">
-                    <button class="btn btn-outline-primary me-2" type="submit">Filtrar</button>
-                    <button class="btn btn-outline-primary" type="reset">Limpar</button>
+                <div class="form-check mt-3">
+                    <input class="form-check-input" type="radio" name="vago" value="vago3">
+                    <label class="form-check-label" for="vago3">Locado</label>
                 </div>
+                <div class="mt-3">
+                    <button class="btn btn-outline-primary me-2" type="submit" id="filtrar">Filtrar</button>
+                </div>
+            </div>    
         </form>
     </div>
-    </div>
+
     <!-- imóveis -->
-    <div class="w-75 mt-5 mx-5">
+    <div class="w-75 mt-5 mx-4">
         <div class="container">
             <div class="row">
                 <!-- no django é só copiar o texto abaixo que ele se reorganizar sozinho -->
@@ -49,37 +58,27 @@
                 <div class="col">
                     <div class="card mx-3 mb-3" style="width: 18rem;">
                         {% if imovel.foto_imovel == '' %}
-                        <img class="card-img-top" src="{% static 'img/apartamento.jpg' %}" alt="">
+                        <img class="card-img-top imagem-card" src="{% static 'img/apartamento.jpg' %}" alt="">
                         {% else %}
-                        <img class="card-img-top" src="{{ imovel.foto_imovel.url }}" alt="teste">
+                        <img class="card-img-top imagem-card" src="{{ imovel.foto_imovel.url }}" alt="teste">
                         {% endif %}
 
                         <div class="card-body">
-                            <h5 class="card-title">{{imovel.codigo}}</h5>
-                            <p class="card-text">{{imovel.endereco}}</p>
-                            <p class="card-text">{{imovel.valor}}</p>
+                            <h5 class="card-title">Cod: {{imovel.codigo}}</h5>
+                            <p class="card-text">End: {{imovel.endereco}}</p>
+                            <p class="card-text">R${{imovel.valor}},00</p>
                             <!-- botao vermelho caso ja estiver desligado e escrito Locado-->
                             <!-- Caso estiver livre, botao azul e escrito Vago -->
-                            <a href="{% url 'imovel' imovel.id %}" class="btn btn-primary">Alugar</a>
+                            {% if imovel.status == False %}
+                                <a href="{% url 'imovel' imovel.id %}" class="btn btn-primary">Alugar</a>
+                            {% else %}
+                                <a href="" class="btn btn-danger">Alugado</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
                 {% endfor %}
                 {% endif %}
-                <div class="col">
-                    <div class="card mx-3" style="width: 18rem;">
-                        <img src="{% static 'img/apartamento.jpg' %}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Nome do Imovel</h5>
-                            <p class="card-text">endereço</p>
-                            <p class="card-text">valor</p>
-                            <!-- botao vermelho caso ja estiver desligado e escrito Locado-->
-                            <!-- Caso estiver livre, botao azul e escrito Vago -->
-                            <a href="#" class="btn btn-primary">Vago</a>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>

@@ -5,11 +5,49 @@ from cliente.models import Cliente
 from django.contrib import messages
 
 def home(request):
-    imoveis = Imovel.objects.order_by('codigo')
-    dados = {
-        'imoveis':imoveis
-    }
-    return render(request, 'home.html', dados)
+    if request.method == 'POST':
+        tipo = request.POST['tipo']
+        vaga = request.POST['vago']
+        if tipo == 'tipo1': #sem filtro
+            if vaga == 'vago1':
+                imoveis = Imovel.objects.order_by('codigo')
+            elif vaga == 'vago2':
+                imoveis = Imovel.objects.order_by('codigo').filter(status=False)
+            else:
+                imoveis = Imovel.objects.order_by('codigo').filter(status=True)
+        if tipo == 'tipo2': #sem filtro
+            if vaga == 'vago1':
+                imoveis = Imovel.objects.order_by('codigo').filter(tipo='2')
+            elif vaga == 'vago2':
+                imoveis = Imovel.objects.order_by('codigo').filter(tipo='2', status=False)
+            else:
+                imoveis = Imovel.objects.order_by('codigo').filter(tipo='2', status=True)
+        if tipo == 'tipo3': #sem filtro
+            if vaga == 'vago1':
+                imoveis = Imovel.objects.order_by('codigo').filter(tipo='3')
+            elif vaga == 'vago2':
+                imoveis = Imovel.objects.order_by('codigo').filter(tipo='3', status=False)
+            else:
+                imoveis = Imovel.objects.order_by('codigo').filter(tipo='3', status=True)
+        if tipo == 'tipo4': #sem filtro
+            if vaga == 'vago1':
+                imoveis = Imovel.objects.order_by('codigo').filter(tipo='1')
+            elif vaga == 'vago2':
+                imoveis = Imovel.objects.order_by('codigo').filter(tipo='1', status=False)
+            else:
+                imoveis = Imovel.objects.order_by('codigo').filter(tipo='1', status=True)
+
+        dados = {
+            'imoveis':imoveis
+        }
+
+        return render(request, 'home.html', dados)
+    else:
+        imoveis = Imovel.objects.order_by('codigo')
+        dados = {
+            'imoveis':imoveis
+        }
+        return render(request, 'home.html', dados)
 
 def cadastrar(request):
     if request.method == 'POST':
@@ -47,6 +85,8 @@ def imovel(request, imovel_id):
                 data_final = d_final,
             )
             aluguel.save()
+            imovel_compromissado.status = True
+            imovel_compromissado.save()
             return redirect('home')
         else: 
             messages.info(request, 'Data inicial maior que final')

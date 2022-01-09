@@ -3,4 +3,11 @@
     border-style: solid;
     border-color: black;
     box-shadow: 5px 2px 2px gray;
+    height: 600px;
+}
+
+.imagem-card{
+    object-fit: cover;
+    object-position: 0 80%;
+    height: 200px;
 }

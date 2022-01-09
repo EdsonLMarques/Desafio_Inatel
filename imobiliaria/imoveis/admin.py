@@ -1,4 +1,6 @@
 from django.contrib import admin
-from .models import Imovel
+from .models import Imovel, Alugueis
 
-admin.site.register(Imovel)
+modelos = [Imovel, Alugueis]
+
+admin.site.register(modelos)
